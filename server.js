@@ -3,6 +3,10 @@ const app = express()
 
 app.use(express.static('public'))
 
+
+app.set('view engine', 'ejs')
+
+
 var MongoClient = require('mongodb').MongoClient
 
 connectionstr='mongodb://saurabh:orange96@ds211088.mlab.com:11088/sentences'
@@ -33,6 +37,7 @@ MongoClient.connect(connectionstr,(err,database) =>{
 })
 
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', (req, res) => res.render('main', {  sentence: 'Hello there!' })
+)
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'))
