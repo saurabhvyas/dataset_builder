@@ -23,6 +23,8 @@ connectionstr='mongodb://saurabh:orange96@ds211088.mlab.com:11088/sentences'
 
 */
 
+hindisentences=0
+
 MongoClient.connect(connectionstr,(err,database) =>{ 
   const myAwesomeDB = database.db('sentences')
  //console.log(myAwesomeDB.collection('hindi').find().toArray
@@ -30,14 +32,15 @@ MongoClient.connect(connectionstr,(err,database) =>{
 	 myAwesomeDB.collection('hindi').find().toArray(function (err, result) {
     if (err) throw err
 
-    console.log(result)
+    hindisentences=result
+    console.log(hindisentences[0][0])
   })
    
 
 })
 
 
-app.get('/', (req, res) => res.render('main', {  sentence: 'Hello there!' })
+app.get('/', (req, res) =>  res.render('main', {  sentence: hindisentences[0][0] })
 )
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'))
