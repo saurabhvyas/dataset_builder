@@ -43,4 +43,7 @@ MongoClient.connect(connectionstr,(err,database) =>{
 app.get('/', (req, res) =>  res.render('mainv2', {  sentence: hindisentences[0][0] })
 )
 
+app.post('/', (req, res) =>  res.send('got a post request')
+)
+
 app.listen(3000, () => console.log('Example app listening on port 3000!'))

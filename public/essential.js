@@ -1,3 +1,9 @@
+var script = document.createElement('script');
+script.src = 'http://code.jquery.com/jquery-1.11.0.min.js';
+script.type = 'text/javascript';
+document.getElementsByTagName('head')[0].appendChild(script);
+
+
 function __log(e, data) {
     log.innerHTML += "\n" + e + " " + (data || '');
   }
@@ -38,6 +44,16 @@ function __log(e, data) {
 
   function createDownloadLink() {
     recorder && recorder.exportWAV(function(blob) {
+
+ function success_fn(success){ console.log('success' + success) }
+	
+      $.ajax({
+  type: "POST",
+  url: 'http://localhost:3000',
+  data: 'test post' ,
+  success:success_fn
+});
+	
       var url = URL.createObjectURL(blob);
       var li = document.createElement('li');
       var au = document.createElement('audio');
