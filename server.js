@@ -1,13 +1,34 @@
 const express = require('express')
 const app = express()
-
+var http = require('http');
+var fs = require('fs');
 
 var multer  = require('multer')
-var upload = multer({ dest: 'uploads/' })
+wav_file_path='/media/saurabh/New Volume/dataset_creator_data/'
+//var upload = multer({ dest: wav_file_path })
+//var bodyParser = require('body-parser')
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+
+var upload = multer({ storage: storage })
 
 app.use(express.static('public'))
 
-//wav_file_path='/media/saurabh/New Volume/dataset_creator_data'
+//app.use(bodyParser.raw())
+
+
+
+
+
+
+//let writeStream = fs.createWriteStream(wav_file_path + 'test.wav');
 
 app.set('view engine', 'ejs')
 
@@ -27,6 +48,17 @@ connectionstr='mongodb://saurabh:orange96@ds211088.mlab.com:11088/sentences'
 })
 
 */
+
+var download = function(url, dest, cb) {
+  var file = fs.createWriteStream(dest);
+  var request = http.get(url, function(response) {
+    response.pipe(file);
+    file.on('finish', function() {
+      file.close(cb);
+    });
+  });
+}
+
 
 hindisentences=0
 
@@ -48,10 +80,18 @@ MongoClient.connect(connectionstr,(err,database) =>{
 app.get('/', (req, res) =>  res.render('mainv2', {  sentence: hindisentences[0][0] })
 )
 
-app.post('/audio', upload.single('test'), function (req, res, next) {
+
+app.post('/audio', upload.single('upl'), function (req, res, next) {
   // req.file is the `avatar` file
   // req.body will hold the text fields, if there were any
+
+	
+    console.log(req.file);
+    res.status(200).send("file uploaded");
+
+
 })
+
 
 
 app.post('/', function(req, res){
@@ -61,6 +101,21 @@ app.post('/', function(req, res){
   });
 
 */
+ 
+ //console.log(req.body);
+
+ //destination=wav_file_path + Date.now() + '.wav';
+
+ //cb = function(p) { console.log(p) }
+
+  //download( req.body, destination , cb);
+
+/* req.on('readable', function(){
+    console.log(req.read());
+    writeStream.pipe(req.body)
+  });
+
+ */
 
  res.send('got a post request')
 })
