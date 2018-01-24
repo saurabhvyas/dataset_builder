@@ -47,19 +47,38 @@ function __log(e, data) {
 
  function success_fn(success){ console.log('success' + success) }
 	
-      $.ajax({
-  type: "POST",
-  url: 'http://localhost:3000',
-  data: 'test post' ,
-  success:success_fn
-});
+console.log(blob);
+
+     
 	
       var url = URL.createObjectURL(blob);
       var li = document.createElement('li');
       var au = document.createElement('audio');
       var hf = document.createElement('a');
+
+console.log(url);
+
+var fd = new FormData();
+fd.append('upl',  blob);
+
+fetch('http://localhost:3000/audio',
+{
+    method: 'post',
+    body: fd
+}); 
+
+/*
+ $.ajax({
+  type: "POST",
+  url: 'http://localhost:3000/audio',
+  data: blob ,
+  success:success_fn,
+ 
+  
+});
       
-      au.controls = true;
+*/  
+    au.controls = true;
       au.src = url;
       hf.href = url;
       hf.download = new Date().toISOString() + '.wav';
