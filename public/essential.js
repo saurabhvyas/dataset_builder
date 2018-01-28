@@ -44,11 +44,14 @@ function __log(e, data) {
   xhr.onload = function(e) {
   if (this.status == 200) {
     var myBlob = this.response;
+    console.log(myBlob);
+    var fd = new FormData();
+    fd.append('upl',  myBlob);
     // myBlob is now the blob that the object URL pointed to.
     fetch('http://localhost:3000/audio',
 {
     method: 'post',
-    body: myBlob
+    body: fd
 }); 
 
                   }
