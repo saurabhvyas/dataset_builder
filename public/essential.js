@@ -52,7 +52,26 @@ function __log(e, data) {
 {
     method: 'post',
     body: fd
-}); 
+}).then( function(){ 
+
+  fetch('http://localhost:3000/next',
+
+{    method: 'get'} ).then( function(data) { 
+
+ data.text().then(function(data) {
+
+ console.log(data); 
+
+ $("h2").text(data);
+ //location.reload(); 
+
+ })
+
+
+});
+
+
+ }) 
 
                   }
     };
@@ -78,7 +97,7 @@ function __log(e, data) {
 
  function success_fn(success){ console.log('success' + success) }
 	
-console.log(blob);
+//console.log(blob);
 
   
      
@@ -88,16 +107,16 @@ console.log(blob);
       var au = document.createElement('audio');
       var hf = document.createElement('a');
 
-console.log(url);
+//console.log(url);
 
-var fd = new FormData();
-fd.append('upl',  blob);
+//var fd = new FormData();
+//fd.append('upl',  blob);
 
-fetch('http://localhost:3000/audio',
-{
-    method: 'post',
-    body: fd
-}); 
+//fetch('http://localhost:3000/audio',
+//{
+//    method: 'post',
+//    body: fd
+//}); 
 
 /*
  $.ajax({
@@ -113,8 +132,8 @@ fetch('http://localhost:3000/audio',
     au.controls = true;
       au.src = url;
       hf.href = url;
-      hf.download = new Date().toISOString() + '.wav';
-      hf.innerHTML = hf.download;
+      hf.download = new Date().toISOString() + '.wav'
+      hf.innerHTML = 'upload this version ' + hf.download;
       li.appendChild(au);
       li.appendChild(hf);
       recordingslist.appendChild(li);
