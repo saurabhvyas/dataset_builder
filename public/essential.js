@@ -1,7 +1,8 @@
-var script = document.createElement('script');
-script.src = 'http://code.jquery.com/jquery-1.11.0.min.js';
-script.type = 'text/javascript';
-document.getElementsByTagName('head')[0].appendChild(script);
+//var script = document.createElement('script');
+//script.src = 'http://code.jquery.com/jquery-1.11.0.min.js';
+//script.type = 'text/javascript';
+//document.getElementsByTagName('head')[0].appendChild(script);
+
 
 
 function __log(e, data) {
@@ -10,6 +11,9 @@ function __log(e, data) {
 
   var audio_context;
   var recorder;
+
+
+
 
   function startUserMedia(stream) {
     var input = audio_context.createMediaStreamSource(stream);
@@ -30,6 +34,30 @@ function __log(e, data) {
     __log('Recording...');
   }
 
+  function get_blob_from_url(blob_url) { 
+  
+  // this funciton gets blob from blob url and posts it to /audio
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', blob_url, true);
+  xhr.responseType = 'blob';
+  xhr.onload = function(e) {
+  if (this.status == 200) {
+    var myBlob = this.response;
+    // myBlob is now the blob that the object URL pointed to.
+    fetch('http://localhost:3000/audio',
+{
+    method: 'post',
+    body: myBlob
+}); 
+
+                  }
+    };
+    xhr.send();
+
+
+ } 
+
   function stopRecording(button) {
     recorder && recorder.stop();
     button.disabled = true;
@@ -49,6 +77,7 @@ function __log(e, data) {
 	
 console.log(blob);
 
+  
      
 	
       var url = URL.createObjectURL(blob);
@@ -89,7 +118,10 @@ fetch('http://localhost:3000/audio',
     });
   }
 
+
   window.onload = function init() {
+
+   
     try {
       // webkit shim
       window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -107,3 +139,23 @@ fetch('http://localhost:3000/audio',
       __log('No live audio input: ' + e);
     });
   };
+
+
+$( document ).ready(function() {
+    console.log( "jquery ready!" );
+    
+     $("ul").on("click","li > a",function () {
+         var value = $(this).attr("href");
+         console.log('working' + value);
+         my_blob = get_blob_from_url(value);
+           
+        
+
+
+
+    
+}); 
+
+
+});
+
