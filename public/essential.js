@@ -65,7 +65,17 @@ function __log(e, data) {
 // empy the current audio list after user has submitted the audio 
 $( "#recordingslist" ).empty();
 
+ if(data === "") {
+
+ $("#sentence").text("Finished! Thanks for your contribution, you may now close this tab");
+
+ console.log('no more data, thanks for your voice donation');
+
+}
+  else {
  $("#sentence").text(data);
+
+ }
  //location.reload(); 
 
  })
