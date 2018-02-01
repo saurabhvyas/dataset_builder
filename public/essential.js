@@ -62,6 +62,9 @@ function __log(e, data) {
 
  console.log(data); 
 
+// empy the current audio list after user has submitted the audio 
+$( "#recordingslist" ).empty();
+
  $("#sentence").text(data);
  //location.reload(); 
 
