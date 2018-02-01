@@ -177,6 +177,54 @@ $( "#recordingslist" ).empty();
 
 
 $( document ).ready(function() {
+
+ function get_next_sentence() {
+
+ fetch('http://localhost:3000/next',
+
+{    method: 'get'} ).then( function(data) { 
+
+ data.text().then(function(data) {
+
+ console.log(data); 
+
+// empy the current audio list after user has submitted the audio 
+$( "#recordingslist" ).empty();
+
+ if(data === "") {
+
+ $("#sentence").text("Finished! Thanks for your contribution, you may now close this tab");
+
+ console.log('no more data, thanks for your voice donation');
+ $( "#recordbtn" ).remove();
+ $( "#stopbtn" ).remove();
+ $( "#skip" ).remove();
+}
+  else {
+ $("#sentence").text(data);
+
+ }
+ //location.reload(); 
+
+ })
+
+
+});
+
+
+}
+
+
+
+   $( "#skip" ).click(function() {
+   console.log('skipping sentence');
+   $( "#recordingslist" ).empty();
+   get_next_sentence();
+   
+
+});
+    
+
     console.log( "jquery ready!" );
     
      $("ul").on("click","li > a",function () {
