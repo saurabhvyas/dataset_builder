@@ -62,7 +62,7 @@ function __log(e, data) {
 
  console.log(data); 
 
- $("h2").text(data);
+ $("#sentence").text(data);
  //location.reload(); 
 
  })
