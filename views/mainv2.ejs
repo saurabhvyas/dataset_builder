@@ -8,7 +8,11 @@ default page for orange hindi project
 <h2 id="sentence"><%= sentence %></h2>
 
 
-
+<audio controls>
+  <source id="audioelement" src="https://translate.google.com/translate_tts?client=tw-ob&ie=UTF-8&idx=0&total=1&textlen=11&tl=hi&q=" type="audio/mp3">
+  
+  <p>Your browser doesn't support HTML5 audio. Here is a <a href="viper.mp3">link to the audio</a> instead.</p>
+</audio>
 
 
 
@@ -16,6 +20,7 @@ default page for orange hindi project
   
 
   <button id="recordbtn" onclick="startRecording(this);">record</button>
+  
   <button id="stopbtn" onclick="stopRecording(this);" disabled>stop</button>
   <button id="skip"  > Skip Sentence </button>
   

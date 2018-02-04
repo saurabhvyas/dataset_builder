@@ -178,6 +178,14 @@ $( "#recordingslist" ).empty();
 
 $( document ).ready(function() {
 
+temp_attr_value=$('#audioelement').attr('src') + $("#sentence").text()
+
+//console.log(temp_attr_value);
+
+
+$('#audioelement').attr( 'src', temp_attr_value )
+ 
+
  function get_next_sentence() {
 
  fetch('http://localhost:3000/next',
@@ -202,6 +210,11 @@ $( "#recordingslist" ).empty();
 }
   else {
  $("#sentence").text(data);
+ temp_attr_value='https://translate.google.com/translate_tts?client=tw-ob&ie=UTF-8&idx=0&total=1&textlen=11&tl=hi&q=' + data;
+
+
+$('#audioelement').attr( 'src', temp_attr_value )
+
 
  }
  //location.reload(); 
