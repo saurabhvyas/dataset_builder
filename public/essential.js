@@ -74,6 +74,23 @@ $( "#recordingslist" ).empty();
 }
   else {
  $("#sentence").text(data);
+ textlen=$("#sentence").text().length + 1;
+console.log('textlength = ' + textlen);
+
+temp='http://translate.google.com/translate_tts?client=tw-ob&ie=UTF-8&idx=0&total=1'
+
+temp_attr_value= temp  + '&tl=hi&q="' + String($("#sentence").text()) + '"'
+console.log(temp_attr_value);
+
+
+$('#audioelement').attr( 'src', temp_attr_value )
+
+var audio_element = document.getElementById('audioparent');
+
+audio_element.load(); //call this to just preload the audio without playing
+  audio_element.play(); //call this to play the song right away
+
+
 
  }
  //location.reload(); 
@@ -178,12 +195,34 @@ $( "#recordingslist" ).empty();
 
 $( document ).ready(function() {
 
-temp_attr_value=$('#audioelement').attr('src') + $("#sentence").text()
+function createAudio(src) {
+  output =  '<audio id="audio">';
+  // you can add more source tag
+  output +=  '<source src='+src+'" type="audio/mp3" />';
+  output +=  '</audio>';
+}
+
+
+
+
+textlen=$("#sentence").text().length + 1;
+console.log('textlength = ' + textlen);
+
+temp='http://translate.google.com/translate_tts?client=tw-ob&ie=UTF-8&idx=0&total=1'
+
+//temp_attr_value=temp + 'textlen=' + textlen + '&tl=hi&q="' + String($("#sentence").text()) + '"'
+temp_attr_value=temp +  '&tl=hi&q="' + String($("#sentence").text()) + '"'
 
 //console.log(temp_attr_value);
-
+console.log(temp_attr_value);
 
 $('#audioelement').attr( 'src', temp_attr_value )
+
+var audio_element = document.getElementById('audioparent');
+
+audio_element.load(); //call this to just preload the audio without playing
+  audio_element.play(); //call this to play the song right away
+
  
 
  function get_next_sentence() {
@@ -209,12 +248,39 @@ $( "#recordingslist" ).empty();
  $( "#skip" ).remove();
 }
   else {
- $("#sentence").text(data);
- temp_attr_value='https://translate.google.com/translate_tts?client=tw-ob&ie=UTF-8&idx=0&total=1&textlen=11&tl=hi&q=' + data;
 
+ $("#sentence").text(data);
+
+textlen=$("#sentence").text().length + 1;
+console.log('textlength = ' + textlen);
+
+temp='http://translate.google.com/translate_tts?client=tw-ob&ie=UTF-8&idx=0&total=1'
+
+//temp_attr_value= temp + 'textlen=' + textlen + '&tl=hi&q=' + String($("#sentence").text())
+temp_attr_value= temp +  '&tl=hi&q="' + String($("#sentence").text()) + '"'
+
+ /* temp_attr_value='https://translate.google.com/translate_tts?client=tw-ob&ie=UTF-8&idx=0&total=1&textlen=11&tl=hi&q=' + data;
+ */
+
+console.log(temp_attr_value);
+
+//var newAudio = $(createAudio(temp_attr_value));
+  //  $("#audioelement").replaceWith(newAudio);
+  //newAudio.play();
 
 $('#audioelement').attr( 'src', temp_attr_value )
 
+var audio_element = document.getElementById('audioparent');
+
+
+
+//$('#audioelement')[0].pause();
+//$('#audioelement')[0].load();//suspends and restores all audio element
+
+audio_element.load(); //call this to just preload the audio without playing
+  audio_element.play(); //call this to play the song right away
+
+console.log($('#audioelement').attr('src'))
 
  }
  //location.reload(); 
