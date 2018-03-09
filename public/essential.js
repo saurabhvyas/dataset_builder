@@ -302,6 +302,18 @@ console.log($('#audioelement').attr('src'))
    
 
 });
+
+
+$('#skip').on('click touchstart', function() {
+        
+$( "#recordingslist" ).empty();
+   get_next_sentence();
+   
+
+    });
+
+
+
     
 
     console.log( "jquery ready!" );
